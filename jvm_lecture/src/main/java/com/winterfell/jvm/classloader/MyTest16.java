@@ -37,6 +37,11 @@ public class MyTest16 extends ClassLoader {
         this.classLoaderName = classLoaderName;
     }
 
+    // for MyTest23.java add
+    public MyTest16(ClassLoader parent) {
+        super(parent);
+    }
+
     /**
      * 关键
      *
