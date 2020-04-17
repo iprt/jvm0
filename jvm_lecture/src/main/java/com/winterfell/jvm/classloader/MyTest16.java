@@ -46,6 +46,9 @@ public class MyTest16 extends ClassLoader {
      */
     @Override
     protected Class<?> findClass(String className) throws ClassNotFoundException {
+        System.out.println("findClass invoked:" + className);
+        System.out.println("class loader name:" + classLoaderName);
+
         byte[] data = this.loadClassData(className);
         return super.defineClass(className, data, 0, data.length);
     }
@@ -148,7 +151,6 @@ public class MyTest16 extends ClassLoader {
      * @throws Exception
      */
     public static void test03() throws Exception {
-
 
         MyTest16 loader1 = new MyTest16("loader1");
         loader1.setPath("D:/tmp/classes/");
