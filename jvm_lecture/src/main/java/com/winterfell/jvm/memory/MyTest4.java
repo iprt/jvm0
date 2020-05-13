@@ -11,7 +11,7 @@ import net.sf.cglib.proxy.MethodInterceptor;
 public class MyTest4 {
 
     // 1.显式设定元空间大小
-
+    // 默认元空间大小到了上限之后会自动扩容
 
     public static void main(String[] args) {
 
@@ -27,3 +27,7 @@ public class MyTest4 {
         }
     }
 }
+
+/*
+-XX:MaxMetaspaceSize=10m
+ */

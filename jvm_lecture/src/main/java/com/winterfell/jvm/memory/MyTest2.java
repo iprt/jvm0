@@ -38,6 +38,8 @@ public class MyTest2 {
             myTest2.test();
         } catch (Throwable e) {
             e.printStackTrace();
+        } finally {
+            System.out.println(myTest2.getLength());
         }
     }
 
