@@ -227,7 +227,7 @@ GC要做的是将哪些dead的对象所占用的内存回收掉
 - 在分代模型的基础上，GC从时机上分为两种：
     - Scavenge GC 和 Full GC
     - `ˈskavənjər`
-- Scavenge GC (Monor GC)
+- Scavenge GC (Minor GC)
     - 触发时机：新对象生成，Eden空间满了
     - 理论上Eden区大多数对象会在Scavenge GC回收，复制算法的执行效率会很高，Scavenge GC时间比较短
 - Full GC
