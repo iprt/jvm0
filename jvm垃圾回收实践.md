@@ -249,3 +249,79 @@
             - 可能几次GC就完成晋升
 
 - 代码示例 [MyTest4.java](jvm_lecture/src/main/java/com/winterfell/jvm/gc/MyTest4.java)
+    - 启动参数
+        ```
+        -verbose:gc
+        -Xmx200M
+        -Xmn50M
+        -XX:TargetSurvivorRatio=60
+        -XX:+PrintTenuringDistribution
+        -XX:+PrintGCDetails
+        -XX:+PrintGCDateStamps
+        -XX:+UseConcMarkSweepGC
+        -XX:+UseParNewGC
+        -XX:MaxTenuringThreshold=3
+        ```
+        - `-XX:+UseConcMarkSweepGC` 使用 CMS收集器 收集老年代
+        - `-XX:+UseParNewGC` 使用 Parallel 收集器收集新生代
+        - `-XX:TargetSurvivorRatio=60` 表示survivor区占据60%的时候重新计算阈值
+            ```
+            计算一下
+            新生代占据内存大小 50M
+            eden : from :to 默认 8:1:1
+            所以 from 和 to 的survivor大小
+            50 * 0.1 = 5M
+            需要重新计算阈值的大小
+            5 * 0.6 = 3M = 3145728 bytes
+            
+            GC 日志中 Desired survivor size 3145728 bytes
+            ```
+        - `-XX:MaxTenuringThreshold=3` GC次数从新生代晋升到老年代的阈值
+- GC日志，具体情况要自己实践一下
+    ```
+    2020-05-15T14:23:53.590+0800: [GC (Allocation Failure) 2020-05-15T14:23:53.590+0800: [ParNew
+    Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+    - age   1:    1781312 bytes,    1781312 total
+    : 39948K->1782K(46080K), 0.0011770 secs] 39948K->1782K(199680K), 0.0015912 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+    111111111111111111
+    2020-05-15T14:23:54.595+0800: [GC (Allocation Failure) 2020-05-15T14:23:54.595+0800: [ParNew
+    Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+    - age   1:        256 bytes,        256 total
+    - age   2:    1702600 bytes,    1702856 total
+    : 42308K->1875K(46080K), 0.0009545 secs] 42308K->1875K(199680K), 0.0009890 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+    222222222222222222
+    2020-05-15T14:23:55.597+0800: [GC (Allocation Failure) 2020-05-15T14:23:55.597+0800: [ParNew
+    Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+    - age   1:         80 bytes,         80 total
+    - age   2:        256 bytes,        336 total
+    - age   3:    1698568 bytes,    1698904 total
+    : 41984K->1907K(46080K), 0.0007950 secs] 41984K->1907K(199680K), 0.0008232 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+    333333333333333333
+    2020-05-15T14:23:56.599+0800: [GC (Allocation Failure) 2020-05-15T14:23:56.599+0800: [ParNew
+    Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+    - age   1:         80 bytes,         80 total
+    - age   2:         80 bytes,        160 total
+    - age   3:        256 bytes,        416 total
+    : 42634K->228K(46080K), 0.0032920 secs] 42634K->1914K(199680K), 0.0033178 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+    44444444444444444
+    2020-05-15T14:23:57.604+0800: [GC (Allocation Failure) 2020-05-15T14:23:57.604+0800: [ParNew
+    Desired survivor size 3145728 bytes, new threshold 1 (max 3)
+    - age   1:    3145856 bytes,    3145856 total
+    - age   2:         80 bytes,    3145936 total
+    - age   3:         80 bytes,    3146016 total
+    : 40960K->3114K(46080K), 0.0009211 secs] 42646K->4801K(199680K), 0.0009470 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+    55555555555555555
+    2020-05-15T14:23:58.607+0800: [GC (Allocation Failure) 2020-05-15T14:23:58.607+0800: [ParNew
+    Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+    - age   1:         80 bytes,         80 total
+    : 43849K->7K(46080K), 0.0015186 secs] 45535K->4765K(199680K), 0.0015490 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+    66666666666666666
+    Heap
+     par new generation   total 46080K, used 18010K [0x00000000f3800000, 0x00000000f6a00000, 0x00000000f6a00000)
+      eden space 40960K,  43% used [0x00000000f3800000, 0x00000000f4994d80, 0x00000000f6000000)
+      from space 5120K,   0% used [0x00000000f6000000, 0x00000000f6001c90, 0x00000000f6500000)
+      to   space 5120K,   0% used [0x00000000f6500000, 0x00000000f6500000, 0x00000000f6a00000)
+     concurrent mark-sweep generation total 153600K, used 4758K [0x00000000f6a00000, 0x0000000100000000, 0x0000000100000000)
+     Metaspace       used 3070K, capacity 4556K, committed 4864K, reserved 1056768K
+      class space    used 324K, capacity 392K, committed 512K, reserved 1048576K
+    ```
