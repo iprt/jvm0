@@ -163,3 +163,89 @@
         - 直接决定了新生代和老年代使用什么GC
         - 对于新生代: `Parallel Scavenge`
         - 对于老年代: `Parallel Old`
+        
+**demo示例**
+- 代码
+    ```
+    public class MyTest2 {
+        public static void main(String[] args) {
+            // 1M大小
+            int size = 1024 * 1024;
+            byte[] myAlloc = new byte[5 * size];
+        }
+    }
+    ```
+- 第①次尝试：
+    - 添加启动参数: `-verbose:gc -Xms20m -Xmx20m -Xmn10m -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:PretenureSizeThreshold=4194304`
+    - `-XX:PretenureSizeThreshold=4194304` 详解
+        - 以字节为单位，表示新生代创建的对象大小超过这个阈值的话，会直接诞生在老年代
+        - 这里的阈值大小的 4M ，上面创建的对象大小是 5M
+    - 运行结果
+        ```
+        Heap
+         PSYoungGen      total 9216K, used 7852K [0x00000000ff600000, 0x0000000100000000, 0x0000000100000000)
+          eden space 8192K, 95% used [0x00000000ff600000,0x00000000ffdab108,0x00000000ffe00000)
+          from space 1024K, 0% used [0x00000000fff00000,0x00000000fff00000,0x0000000100000000)
+          to   space 1024K, 0% used [0x00000000ffe00000,0x00000000ffe00000,0x00000000fff00000)
+         ParOldGen       total 10240K, used 0K [0x00000000fec00000, 0x00000000ff600000, 0x00000000ff600000)
+          object space 10240K, 0% used [0x00000000fec00000,0x00000000fec00000,0x00000000ff600000)
+         Metaspace       used 3067K, capacity 4556K, committed 4864K, reserved 1056768K
+          class space    used 324K, capacity 392K, committed 512K, reserved 1048576K
+        ```
+        - 虽然创建的对象的大小大于4M，但是对象并没有诞生在老年代
+    - **使用了阈值参数但是对象并没有诞生在老年代的问题分析**
+        - 因为JVM的参数在使用时有时候时交织在一起的
+        - 在使用 `-XX:PretenureSizeThreshold` 这个参数的时候，需要指定串行的垃圾收集器
+            - 即 `Serial垃圾收集器`
+- 第②次尝试：
+    - 添加启动参数: `-verbose:gc -Xms20m -Xmx20m -Xmn10m -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:PretenureSizeThreshold=4194304 -XX:+UseSerialGC`
+        - 注意：在使用 `-XX:PretenureSizeThreshold` 指定了 垃圾收集器 `-XX:+UseSerialGC`
+    - 运行结果
+        ```
+        Heap
+         def new generation   total 9216K, used 2732K [0x00000000fec00000, 0x00000000ff600000, 0x00000000ff600000)
+          eden space 8192K,  33% used [0x00000000fec00000, 0x00000000feeab0f8, 0x00000000ff400000)
+          from space 1024K,   0% used [0x00000000ff400000, 0x00000000ff400000, 0x00000000ff500000)
+          to   space 1024K,   0% used [0x00000000ff500000, 0x00000000ff500000, 0x00000000ff600000)
+         tenured generation   total 10240K, used 5120K [0x00000000ff600000, 0x0000000100000000, 0x0000000100000000)
+           the space 10240K,  50% used [0x00000000ff600000, 0x00000000ffb00010, 0x00000000ffb00200, 0x0000000100000000)
+         Metaspace       used 3067K, capacity 4556K, committed 4864K, reserved 1056768K
+          class space    used 324K, capacity 392K, committed 512K, reserved 1048576K
+        ```
+        - 原来的 `PSYoungGen` ---> `def new generation`
+        - 原来的 `ParOldGen` ---> `tenured generation`
+    - 结果分析
+        - 使用了 `-XX:+UseSerialGC`
+            - 新生代使用的GC是 `Serial`
+            - 老年代是用的GC是 `Serial Old`
+        - 创建了一个5M的对象之后，发现并没有在新生代存储，而是直接存储在老年代
+- 自我分析
+    - `-XX:PretenureSizeThreshold` 要和 `-XX:+UseSerialGC` 搭配使用
+    - 关于新生代对象到底在哪里创建，需要多次代码示例
+        - 上述代码中，如果去掉了  `-XX:+UseSerialGC`
+        - 但是创建一个 **8M** 大小的对象，同样会直接分配在老年代里面
+        
+- 关于GC的执行
+    - 一般都是在新对象创建的时候进行GC，因为只有新对象创建的时候内存空间才会不够用
+
+## MaxTenuringThreshold与阈值的动态调整详解
+
+### 理论讲解
+- MaxTenuringThreshold
+    - 在可以自动调节对象晋升（Promote）到老年代阈值的GC中，设置改阈值的最大值
+        - 个人理解：设置可以晋升到老年代的对象可以存活的**最大**年龄
+    - 该参数的默认值是15
+        - CMS中默认值为6
+        - G1中默认值为15 （在JVM中，该数值由4个bit来表示的，所以最大值是1111，即15）
+    - 经历了多次GC后，存活的对象（在新生代）会在`From Survivor` 和 `To Survivor` 之间来回存放
+        - 前提：是这两个空间有足够的大小来存放这些数据
+        - 来回存放就是来回复制：浪费性能
+    - 在GC算法中，会计算每个对象年龄的大小，如果**达到某个年龄后**发现**总大小已经大于Survivor空间的50%**
+        - 这时候就需要调整阈值，不能再继续等到默认的15次GC后才完成晋升
+            - 自动调整，这里体现了自动调整
+        - 为什么不能继续等到15次GC
+            - 因为这样会导致Survivor空间不足，所以需要调整阈值让这些存活对象尽快完成晋升
+            - `MaxTenuringThreshold` 这个参数就是设置阈值的最大值
+            - 可能几次GC就完成晋升
+
+- 代码示例 [MyTest4.java](jvm_lecture/src/main/java/com/winterfell/jvm/gc/MyTest4.java)
