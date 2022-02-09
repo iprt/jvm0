@@ -248,7 +248,7 @@
             - `MaxTenuringThreshold` 这个参数就是设置阈值的最大值
             - 可能几次GC就完成晋升
 
-- 代码示例 [MyTest4.java](jvm_lecture/src/main/java/com/winterfell/jvm/gc/MyTest4.java)
+- 代码示例 [MyTest4.java](jvm_lecture/src/main/java/org/iproute/jvm/gc/MyTest4.java)
     - 启动参数
         ```
         -verbose:gc
