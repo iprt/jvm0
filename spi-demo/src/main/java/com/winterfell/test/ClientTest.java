@@ -14,10 +14,7 @@ public class ClientTest {
 
         ServiceLoader<Welcome> serviceLoader = ServiceLoader.load(Welcome.class);
 
-        Iterator<Welcome> iterator = serviceLoader.iterator();
-
-        while (iterator.hasNext()){
-            Welcome welcome = iterator.next();
+        for (Welcome welcome : serviceLoader) {
             System.out.println(welcome.sayHello("zhuzhenjie"));
         }
 
