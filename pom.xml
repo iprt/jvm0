@@ -4,29 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.winterfell</groupId>
-        <artifactId>jvm0</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
+    <groupId>com.winterfell</groupId>
+    <artifactId>jvm0</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-    <artifactId>jvm_lecture</artifactId>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>3.2.8</version>
-        </dependency>
-
-    </dependencies>
+    <modules>
+        <module>jvm_lecture</module>
+        <module>spi-demo</module>
+        <module>spi-interface</module>
+        <module>spi-interface-impl</module>
+        <module>spi-interface-impl2</module>
+    </modules>
 
     <profiles>
         <profile>

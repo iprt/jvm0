@@ -45,7 +45,7 @@ CMS是基于“标记-清除”算法实现的，整个过程分为4个步骤
 
 CMS运作步骤如下图所示，在整个过程中耗时最长的额并发标记和并发清楚过程收集器线程都可以与用户线程一起工作，因此从总体上看，CMS收集器的内存回收过程始于用户线程一起并发执行的
 
-![CMS垃圾收集器回收过程](img/gc/CMS垃圾收集器回收过程.jpg)
+![CMS垃圾收集器回收过程](../img/gc/CMS垃圾收集器回收过程.jpg)
 - 初始标记 `Stop The World`
 - 并发标记，和业务线程并行
 - 重新标记 `Stop The World`
@@ -83,7 +83,7 @@ CMS收集器无法处理浮动垃圾 （Floating Garbage）,可能出现 “Conc
 
 这个是CMS两次 `Stop The World` 事件中的其中一次，这个阶段的目标是：标记哪些直接被`GC Root`引用或者被年轻代存活对象所引用的所有对象
 
-![CMS_1_InitialMark](img/gc/CMS_1_InitialMark.jpg)
+![CMS_1_InitialMark](../img/gc/CMS_1_InitialMark.jpg)
 - 标记 被 `GC Root` 引用
 - 标记 被年轻代存活对象引用
 - PS： CMS收集器是在老年代上使用的
@@ -93,7 +93,7 @@ CMS收集器无法处理浮动垃圾 （Floating Garbage）,可能出现 “Conc
 
 在这个阶段 Garbage Collector 会遍历老年代，然后标记所有存活的对象，它会根据上个阶段找到 `GC Roots` 遍历查找。并发标记阶段，它会与用户的应用程序并发运行。并不是老年代所有的存回对象都会被标记，因为在标记期间的用户程序可能会改变一些引用
 
-![CMS_2_ConcurrentMark](img/gc/CMS_2_ConcurrentMark.jpg)
+![CMS_2_ConcurrentMark](../img/gc/CMS_2_ConcurrentMark.jpg)
 - 在上面的图中，与阶段1的图进行对比，就会发现有一个对象的引用已经发生了变化
 
 #### Phase 3: `Concurrent Preclean`
@@ -102,7 +102,7 @@ CMS收集器无法处理浮动垃圾 （Floating Garbage）,可能出现 “Conc
 
 在pre-clean阶段，那些能够从Dirty对象到达的对象也会被标记，这个标记做完之后，dirty card标记就会被清除了
 
-![CMS_3_ConcurrentPreClean](img/gc/CMS_3_ConcurrentPreClean.jpg)
+![CMS_3_ConcurrentPreClean](../img/gc/CMS_3_ConcurrentPreClean.jpg)
 
 
 #### Phase 4: `Concurrent Abortable Preclean`
@@ -125,7 +125,7 @@ CMS收集器无法处理浮动垃圾 （Floating Garbage）,可能出现 “Conc
 
 这里不需要STW，它是与用户的应用程序并发运行，这个阶段是：清除那些不在使用的对象，回收它们的占用空间为将来使用
 
-![CMS_6_ConcurrentSweep](img/gc/CMS_6_ConcurrentSweep.jpg)
+![CMS_6_ConcurrentSweep](../img/gc/CMS_6_ConcurrentSweep.jpg)
 
 #### Phase 7: `Concurrent Reset`
 
@@ -196,13 +196,13 @@ G1在某些方面弥补了CMS的不足，比如，CMS使用的是 `mark-sweep` �
 
 ### 传统垃圾收集器的堆结构
 
-![传统垃圾收集器堆结构](img/gc/传统垃圾收集器堆结构.jpg)
+![传统垃圾收集器堆结构](../img/gc/传统垃圾收集器堆结构.jpg)
 
 - 永久代在JDK8之后没有了 变成了原空间
 
 ### G1垃圾收集器堆结构
 
-![G1垃圾收集器堆结构](img/gc/G1垃圾收集器堆结构.jpg)
+![G1垃圾收集器堆结构](../img/gc/G1垃圾收集器堆结构.jpg)
 - 在G1中，整个堆空间是一个整体
 - 不会划分出一块连续的区域作为新生代，老年代什么的
 - 其中灰色的是没有被使用的
@@ -245,7 +245,7 @@ G1在某些方面弥补了CMS的不足，比如，CMS使用的是 `mark-sweep` �
     - RSet记录了其他Region中对象的关系，属于 points-into 结构（谁引用了我的对象）
     - RSet的价值在于是的垃圾收集器不需要扫描整个堆找到谁引用了当前分区中的对象，只需要扫描RSet即可
     - 解释：Region1和Region3中的对象都引用了Region2中的对象，因此在Region2的RSet中记录了这两个引用
-        ![RSet](img/gc/RSet.jpg)
+        ![RSet](../img/gc/RSet.jpg)
 
 - G1 GC是在point-out的card table之上再加了一层结构来构成points-into RSet
     - 每个 region 会记录下到底哪些被的region有指向自己的指针，而这些指针分别在哪些card的范围内

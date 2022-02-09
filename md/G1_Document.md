@@ -67,7 +67,7 @@ For the sake of security, the Java virtual machine imposes strong syntactic and 
 
 The HotSpot JVM possesses an architecture that supports a strong foundation of features and capabilities and supports the ability to realize high performance and massive scalability. For example, the HotSpot JVM JIT compilers generate dynamic optimizations. In other words, they make optimization decisions while the Java application is running and generate high-performing native machine instructions targeted for the underlying system architecture. In addition, through the maturing evolution and continuous engineering of its runtime environment and multithreaded garbage collector, the HotSpot JVM yields high scalability on even the largest available computer systems.
 
-![Slide1](img/gc/g1/Slide1.PNG)
+![Slide1](../img/gc/g1/Slide1.PNG)
 
 The main components of the JVM include the class loader, the runtime data areas, and the execution engine.
 
@@ -75,7 +75,7 @@ The main components of the JVM include the class loader, the runtime data areas,
 
 The key components of the JVM that relate to performance are highlighted in the following image.
 
-![Slide2](img/gc/g1/Slide2.PNG)
+![Slide2](../img/gc/g1/Slide2.PNG)
 
 There are three components of the JVM that are focused on when tuning performance. The heap is where your object data is stored. This area is then managed by the garbage collector selected at startup. Most tuning options relate to sizing the heap and choosing the most appropriate garbage collector for your situation. The JIT compiler also has a big impact on performance but rarely requires tuning with the newer versions of the JVM.
 
@@ -116,13 +116,13 @@ G1 is planned as the long term replacement for the Concurrent Mark-Sweep Collect
 
 The older garbage collectors (serial, parallel, CMS) all structure the heap into three sections: young generation, old generation, and permanent generation of a fixed memory size.
 
-![HeapStructure](img/gc/g1/HeapStructure.png)
+![HeapStructure](../img/gc/g1/HeapStructure.png)
 
 All memory objects end up in one of these three sections.
 
 The G1 collector takes a different approach.
 
-![Slide9](img/gc/g1/Slide9.PNG)
+![Slide9](../img/gc/g1/Slide9.PNG)
 - The heap is partitioned into a set of equal-sized heap regions, each a contiguous range of virtual memory. Certain region sets are assigned the same roles (eden, survivor, old) as in the older collectors, but there is not a fixed size for them. This provides greater flexibility in memory usage.
 
 When performing garbage collections, G1 operates in a manner similar to the CMS collector. G1 performs a concurrent global marking phase to determine the liveness of objects throughout the heap. After the mark phase completes, G1 knows which regions are mostly empty. It collects in these regions first, which usually yields a large amount of free space. This is why this method of garbage collection is called Garbage-First. As the name suggests, G1 concentrates its collection and compaction activity on the areas of the heap that are likely to be full of reclaimable objects, that is, garbage. G1 uses a pause prediction model to meet a user-defined pause time target and selects the number of regions to collect based on the specified pause time target.
