@@ -14,10 +14,12 @@ public class ClientTest {
 
         ServiceLoader<Welcome> serviceLoader = ServiceLoader.load(Welcome.class);
 
-        for (Welcome welcome : serviceLoader) {
+        Iterator<Welcome> iterator = serviceLoader.iterator();
+
+        while (iterator.hasNext()){
+            Welcome welcome = iterator.next();
             System.out.println(welcome.sayHello("zhuzhenjie"));
         }
 
     }
-
 }
