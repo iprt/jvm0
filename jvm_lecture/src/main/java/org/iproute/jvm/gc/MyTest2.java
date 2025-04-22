@@ -1,7 +1,7 @@
 package org.iproute.jvm.gc;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest2 {
     public static void main(String[] args) {

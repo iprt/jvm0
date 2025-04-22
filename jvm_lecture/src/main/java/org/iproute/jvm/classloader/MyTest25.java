@@ -3,7 +3,7 @@ package org.iproute.jvm.classloader;
 /**
  * 线程类加载器
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest25 implements Runnable {
 

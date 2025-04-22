@@ -10,7 +10,7 @@ import java.util.concurrent.locks.Lock;
 /**
  * Mutex 基于AQS实现的互斥锁，摘自JDK源码
  *
- * @author winterfell
+ * @author tech@intellij.io
  * @since 2022/1/2
  */
 public class Mutex implements Lock, java.io.Serializable {

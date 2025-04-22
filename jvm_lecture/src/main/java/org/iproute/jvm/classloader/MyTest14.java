@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Enumeration;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  */
 public class MyTest14 {
     public static void main(String[] args) throws IOException {

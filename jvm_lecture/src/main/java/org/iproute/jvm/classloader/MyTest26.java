@@ -7,7 +7,7 @@ import java.util.ServiceLoader;
 /**
  * 线程上下文类加载器的一般使用模式（获取-使用-还原）
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest26 {
 

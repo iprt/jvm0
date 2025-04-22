@@ -3,7 +3,7 @@ package org.iproute.jvm.classloader;
 /**
  * 调用ClassLoader类的loadClass方法加载一个类，并不是对类的主动使用，不会导致类的初始化
  *
- * @author winterfell
+ * @author tech@intellij.io
  */
 public class MyTest12 {
 

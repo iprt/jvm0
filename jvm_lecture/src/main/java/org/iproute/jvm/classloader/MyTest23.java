@@ -7,7 +7,7 @@ import sun.misc.Launcher;
  * <p>
  * 如果同样名字的类（即相同的限定名）的类是有两个不同的加载器所加载的，那么这些类就是不同的，即便.class文件的字节码完全一样，并且从相同的位置加载亦如此
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest23 {
 
@@ -40,6 +40,7 @@ public class MyTest23 {
 
 }
 /*
+
 在Oracle的HotSpot实现中，系统属性 sun.boot.class.path如果修改错了，则运行会出错，提示如下错误信息
 
 Error occurred during initialization of VM

@@ -1,7 +1,7 @@
 package org.iproute.jvm.classloader;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  */
 public class MyTest7 {
     public static void main(String[] args) throws ClassNotFoundException {

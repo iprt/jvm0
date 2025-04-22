@@ -3,7 +3,7 @@ package org.iproute.jvm.classloader;
 import com.sun.crypto.provider.AESKeyGenerator;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest19 {
     public static void main(String[] args) {

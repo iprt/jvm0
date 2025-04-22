@@ -7,7 +7,7 @@ package org.iproute.jvm.bytecode;
  * g1的静态类型是Grandpa g1的实际类型（真正指向的类型）是Father
  *
  * 我们可以得出这样一个结论：变量的静态类型是不会发生变化，变量的实际类型则是可以发生变化的（多态的一种体现），实际类型是在运行期方可确定
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest5 {
 

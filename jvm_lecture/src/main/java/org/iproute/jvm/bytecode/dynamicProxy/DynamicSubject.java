@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class DynamicSubject implements InvocationHandler {
 

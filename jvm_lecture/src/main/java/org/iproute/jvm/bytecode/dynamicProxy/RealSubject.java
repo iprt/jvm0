@@ -1,7 +1,7 @@
 package org.iproute.jvm.bytecode.dynamicProxy;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class RealSubject implements Subject {
 

@@ -1,7 +1,7 @@
 package org.iproute.jvm.classloader;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  */
 public class MyTest10 {
     public static void main(String[] args) {

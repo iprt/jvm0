@@ -3,7 +3,7 @@ package org.iproute.jvm.memory;
 /**
  * 虚拟机栈溢出
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest2 {
 

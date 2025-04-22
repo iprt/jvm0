@@ -3,7 +3,7 @@ package org.iproute.jvm.classloader;
 import java.lang.reflect.Method;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest20 {
 

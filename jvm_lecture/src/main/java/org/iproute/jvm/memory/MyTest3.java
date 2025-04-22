@@ -1,7 +1,7 @@
 package org.iproute.jvm.memory;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest3 {
 

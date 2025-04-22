@@ -16,7 +16,7 @@ package org.iproute.jvm.bytecode;
  *   而基于寄存器的指令集是直接有cpu来执行的，它是在告诉缓冲区中进行执行的，速度要快很多。虽然虚拟机可以采用一些优化手段，
  *   但总体来说，基于栈的指令集执行速度要慢一些
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest8 {
 

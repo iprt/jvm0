@@ -3,7 +3,7 @@ package org.iproute.jvm.concurrent;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  */
 public class MyLock {
 

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  */
 public class MyTest16 extends ClassLoader {
     /**

@@ -5,7 +5,7 @@ package org.iproute.jvm.classloader;
  *
  * 每个类都会
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest24 {
 

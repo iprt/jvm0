@@ -5,7 +5,7 @@ package org.iproute.jvm.classloader;
  * 当一个子类初始的时候必须要求其父类初始化完成，一直初始化到Object
  * -XX:+TraceClassLoading 用于追踪类的加载信息并打印出来
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest1 {
     public static void main(String[] args) {

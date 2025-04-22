@@ -15,7 +15,7 @@ package org.iproute.jvm.bytecode;
  * <p>
  * 方法重载是静态的，是编译期行为，方法重写是动态的，是运行期的行为
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest6 {
 

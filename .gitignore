@@ -1,7 +1,7 @@
-/.idea
-jvm_lecture/target
+.idea
+
+build
+
+.gradle
+
 *.class
-*.iml
-/spi-demo/target
-/spi-interface/target
-/spi-interface-impl/target

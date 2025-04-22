@@ -13,7 +13,7 @@ import java.net.ServerSocket;
  * 接下来在运行期间，有JVM在调用实例方法是，自动向实例方法传入该this参数。所以，在实例方法的局部变量表中，知道会有一个指向当前对象的局部变量
  *
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest3 {
 

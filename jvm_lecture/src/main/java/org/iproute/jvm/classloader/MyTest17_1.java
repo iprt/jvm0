@@ -6,7 +6,7 @@ package org.iproute.jvm.classloader;
  * 子加载器加载的类可以访问父加载器加载的类
  * 父加载器加载的类不能访问子加载器加载的类
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest17_1 {
 

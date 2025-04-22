@@ -6,7 +6,7 @@ import net.sf.cglib.proxy.MethodInterceptor;
 /**
  * 方法区产生内存溢出
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest4 {
 

@@ -12,7 +12,7 @@ import java.util.List;
  * 运行时常量池（编译期确定的）：方法区的一部分内容。
  * 直接内存：Direct Memory
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest1 {
 

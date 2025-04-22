@@ -8,7 +8,7 @@ package org.iproute.jvm.classloader;
  *
  * 助记符
  * anewarray：创建一个引用类型的数组
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest4 {
     public static void main(String[] args) {

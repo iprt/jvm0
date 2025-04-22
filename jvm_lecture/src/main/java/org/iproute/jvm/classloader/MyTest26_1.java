@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.ServiceLoader;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  */
 public class MyTest26_1 {
 

@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 /**
  * 测试的时候删除 IDE 编译的 MyPerson.class
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest21 {
 

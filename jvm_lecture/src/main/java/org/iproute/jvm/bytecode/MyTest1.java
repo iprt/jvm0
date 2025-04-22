@@ -1,7 +1,7 @@
 package org.iproute.jvm.bytecode;
 
 /**
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest1 {
 

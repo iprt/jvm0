@@ -3,7 +3,7 @@ package org.iproute.jvm.memory;
 /**
  * jmap
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest5 {
 

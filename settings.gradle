@@ -1,0 +1,15 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        gradlePluginPortal()
+    }
+}
+
+
+rootProject.name = "jvm0"
+
+include("jvm_lecture")
+include("spi-examples:interface")
+include("spi-examples:impl1")
+include("spi-examples:impl2")
+include("spi-examples:test-case")

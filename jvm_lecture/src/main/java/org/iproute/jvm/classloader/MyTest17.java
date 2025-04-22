@@ -3,7 +3,7 @@ package org.iproute.jvm.classloader;
 /**
  * 类加载器在复杂情况下的运行分析
  *
- * @author winterfell
+ * @author tech@intellij.io
  **/
 public class MyTest17 {
 
